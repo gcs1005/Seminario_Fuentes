@@ -1,0 +1,8 @@
+P.A.T (Personal Access Token)
+Clave alfanumérica para el token de Github: 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
+
+GIT:
+R:   'R CRAN DOWNLOAD'
+Rstudio.com
+
+
