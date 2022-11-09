@@ -16,3 +16,4 @@ x2 <- na.omit(x1)
 x2
 x3 <- filter(x2, Sexo == "Ambos sexos")
 
+

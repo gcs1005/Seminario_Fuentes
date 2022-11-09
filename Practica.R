@@ -1022,8 +1022,11 @@ Accidentes_total %>%
 
 
 # Introducción  ggplot2 ---------------------------------------------------
+#ggplot funciona como las capas del photoshop. Un objeto ggplot (g´rfico, diagrama...)
+#tendrá al menos estastres capas: DATA (Que será un DF/Tibble), Aesthetics (ejes x,y,z),
+#Geometry (visualizar)
 #library(ggplot2)
-library(tidyverse)
+library(tidyverse) #Ya tengo todo el tidyverse instalado, no hace falta instalar nada nuevo
 
 ?ggplot2
 
@@ -1032,8 +1035,10 @@ library(tidyverse)
 
 # Cargamos los datos
 data("mpg")
+#Tmb podemos verlo así:
+mpg
 
-# reseña del set de datos
+# reseña del set de datos, estos datos llamados mpg son sobre coches.
 ?mpg
 
 str(mpg)
@@ -1042,21 +1047,32 @@ str(mpg)
 ?ggplot
 
 # Definición de las tres mínimas variables en un gráfico
+#¿Como es la sintaxis?
 ggplot(data = mpg, aes(x = displ, y = hwy))
 
 
 # ** Gráfico de dispersión ------------------------------------------------
 # Incluyendo la geometría
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
-  geom_point()
+  geom_point() #Hay muchísimas geometrías, (ver como se autorellena al escribir geom...)
+#Si ejecutamos las dos primeras capas, vemos que el gráfico no tiene los puntos (OJO, no está vacío)
 
-?geom_point
+
+?geom_point #Es una función por sí misma.
 
 # Controlando el color -- Fijo
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(colour = "darkgreen")
 
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point(colour = "palevioletred2")
+
+
+
 # Controlando el color -- Dependiente de otra variable
+#Cada vez que me quiera invitar a una variable, poner aes. En este caso está invitando a
+#la variable color. Le doy un color a cada nivel de ese factor cilindro. Convertivos cyl
+#en un factor, lo que tenía de especial un factor es que es una variable categórica conniveles.
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(colour = factor(cyl)))
 
@@ -1064,47 +1080,51 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(colour = cyl))
 
-# Agregamos una línea de ajuste
+# Vamos a ver otra geometría. Agregamos una línea de ajuste
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() #Añadimos una regresión
 
 # Podemos comparar diferentes modelos de ajustes
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth(method = "loess", colour = "blue") +
-  geom_smooth(method = "lm", colour = "red")
+  geom_point() + #Añadimos puntos y luego añadimos "líneas" por así decirlo
+  geom_smooth(method = "loess", colour = "blue") + #Este modelo no lo conocemos
+  geom_smooth(method = "lm", colour = "red") #Modelo lineal
 
 # Podemos ajustar modelos dependientes de cada nivel de la variable categórica
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(colour = factor(cyl))) +
-  geom_smooth(method = "lm", aes(colour = factor(cyl)))
+  geom_point(aes(colour = factor(cyl))) + #Un color para los puntos de cada nivel del factor
+  geom_smooth(method = "lm", aes(colour = factor(cyl))) #Aplicamos una regresión para 
+#cada nivel del factor, con un color para cada una.
 
 
 # ** Gráfico de barras ----------------------------------------------------
 data("diamonds")
 str(diamonds)
-?diamonds
+?diamonds #Datos sobre diamantes...
 
 # Gráfico sencillo con "conteo" de ítems (solo "x" variable)
 ggplot(data = diamonds, aes(x = cut)) +
-  geom_bar()
+  geom_bar() #Barras en vez de puntos
 
 # Mismo gráfico, pero llevado a proporción (todas las áreas suman 1)
+# Esto es así y punto
 ggplot(data = diamonds, aes(x = cut, y = ..prop.., group = 1)) +
   geom_bar()
 
 # Modificando el colour --> no es lo que esperas!
 ggplot(data = diamonds, aes(x = cut)) +
-  geom_bar(aes(colour = clarity))
+  geom_bar(aes(colour = clarity)) #Que haya un color por cada nivel del clarity.
+#Cada barra debe tener un color para los distintos niveles del factor clarity.
 
 # Modificando el "relleno" de las cajas
 ggplot(data = diamonds, aes(x = cut)) +
-  geom_bar(aes(fill = clarity), colour ="black")
+  geom_bar(aes(fill = clarity), colour ="black") #Con fill
+#Color del borde negro
 
 # Para hacer comparaciones "intra-clase" de la variable de relleno
 ggplot(data = diamonds, aes(x = cut)) +
-  geom_bar(aes(fill = clarity), position = "fill")
+  geom_bar(aes(fill = clarity), position = "fill") #Con "fill" rellenamos todas las cajas
 
 # Para hacer comparaciones entre niveles del eje X considerando la tercera variable
 ggplot(data = diamonds, aes(x = cut)) +
@@ -1119,7 +1139,7 @@ ggplot(data = diamonds) +
     show.legend = FALSE,
     width = 1
   ) + 
-  theme(aspect.ratio = 1) +
+  theme(aspect.ratio = 1) + #El theme modifica los aspectos generales del gráfico.
   labs(x = NULL, y = NULL)
 
 # Agregando las transformaciones

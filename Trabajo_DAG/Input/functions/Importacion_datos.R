@@ -9,5 +9,3 @@ View(Muerte_niños_semana)
 library(readxl)
 ENS_2017 <- read_excel("Trabajo_DAG/Input/data/ENSE17_MOD3_REL (1).xlsx")
 View(ENS_2017)
-
-
