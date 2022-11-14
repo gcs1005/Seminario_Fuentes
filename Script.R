@@ -49,3 +49,4 @@ x2
 x3 <- filter(x2, Sexo == "Ambos sexos")
 
 
+
