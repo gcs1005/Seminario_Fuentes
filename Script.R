@@ -19,3 +19,9 @@ muertes_CCAA #Visualizamos el filtrado
 #utilizar funcion str() para ver el nombre de las columnas, y solo queda 
 #utilizar la función rename(), y cambiar su nombre a nivel bajo,moderado y alto
 
+
+x1_01<-ENSE17_MOD3_REL_1_ %>%
+  slice(.data= ENSE17_MOD3_REL_1_, 51:69 ) %>%
+  rename(
+    nivel_alto=...3,nivel_moderado=...4,nivel_bajo=...5
+  )
