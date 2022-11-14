@@ -1,7 +1,7 @@
 # Carga de paquetes -------------------------------------------------------
 library(dplyr)
 
-# Carga de datos ----------------------------------------------------------
+# Filtrado datos niños muertos: Ambos sexos por CCAA----------------------------------------------------------
 x1 <- 
   Muerte_niños_semana %>%
   group_by(`Comunidades y Ciudades Autónomas`, Sexo) %>%
@@ -9,11 +9,13 @@ x1 <-
   summarise(
     suma_total = sum(Total)
   )
-na.omit(x1)
-  
-x1
+
 x2 <- na.omit(x1)
-x2
-x3 <- filter(x2, Sexo == "Ambos sexos")
+
+muertes_CCAA <- filter(x2, Sexo == "Ambos sexos")
+muertes_CCAA #Visualizamos el filtrado
+
+# Filtrado datos deportes: Mujeres por CCAA y su nivel de act.física-------------------------------------------
+
 
 
