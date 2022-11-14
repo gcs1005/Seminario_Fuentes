@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #IMportación de los datos de causas de muerte en niños de un semana, un arvhivo
 #CSV delimitado por puntos y comas
 
@@ -29,7 +28,8 @@ x1_01<-ENSE17_MOD3_REL_1_ %>%
   rename(
     nivel_alto=...3,nivel_moderado=...4,nivel_bajo=...5
   )
-=======
+
+
 # Carga de paquetes -------------------------------------------------------
 library(dplyr)
 
@@ -48,5 +48,4 @@ x2 <- na.omit(x1)
 x2
 x3 <- filter(x2, Sexo == "Ambos sexos")
 
->>>>>>> 96b4dc2c5184009c24ea898535e057799cdf850d
 
