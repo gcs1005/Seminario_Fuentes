@@ -16,7 +16,7 @@ x1
 x2<-na.omit(x1)
 x2
 x3<-filter(x2,Sexo=="Ambos sexos")
-
+x3
 #Importacion excel
 library(readxl)
 ENSE17_MOD3_REL_1_ <- read_excel("Input/data/ENSE17_MOD3_REL (1).xlsx", 
