@@ -1,7 +1,7 @@
 #Importación de los datos
 # *
 library(readr)
-Muerte_niños_semana <- read_delim("Trabajo_DAG/Input/data/02022.csv", 
+Muerte_niños_semana <- read_delim("Input/data/02022.csv", 
                                   delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(Muerte_niños_semana)
 
