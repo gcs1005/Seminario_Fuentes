@@ -28,4 +28,3 @@ x1_01<-ENSE17_MOD3_REL_1_ %>%
   rename(
     nivel_alto=...3,nivel_moderado=...4,nivel_bajo=...5
   )
-#hasta aqui
