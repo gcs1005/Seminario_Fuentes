@@ -93,13 +93,12 @@ attributes(ejercicio_mujeres_comunidad)
 #ejercicio_mujeres_comunidad
 muertes_CCAA<-
   muertes_CCAA %>%
-  mutate("Comunidades y Ciudades Autónomas"=factor("Comunidades y Ciudades Autónomas",across("Comunidades y Ciudades Autónomas",toupper())))
-ejercicio_mujeres_comunidad
-
+  mutate(.data=.,"Comunidades y Ciudades Autónomas"=toupper(levels(muertes_CCAA$`Comunidades y Ciudades Autónomas`"Comunidades y Ciudades Autónomas")))
+muertes_CCAA
 #Species <-
 #   Species %>% 
 #   mutate(Island = factor(Island, levels = c("Pinzón", "Santa Cruz","Santa Fé", "Seymour" )))
-
+?mutate
 
 
 #Una vez tenemos ambas tablas hacemos un left_join, que por defecto realizará un 
