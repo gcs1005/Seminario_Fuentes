@@ -93,8 +93,9 @@ attributes(ejercicio_mujeres_comunidad)
 #ejercicio_mujeres_comunidad
 muertes_CCAA<-
   muertes_CCAA %>%
-  mutate(.data=.,"Comunidades y Ciudades Autónomas"=toupper(levels(muertes_CCAA$`Comunidades y Ciudades Autónomas`"Comunidades y Ciudades Autónomas")))
+  mutate(.data=.,"Comunidades y Ciudades Autónomas"=ejercicio_mujeres_comunidad$MUJERES)
 muertes_CCAA
+
 #Species <-
 #   Species %>% 
 #   mutate(Island = factor(Island, levels = c("Pinzón", "Santa Cruz","Santa Fé", "Seymour" )))
