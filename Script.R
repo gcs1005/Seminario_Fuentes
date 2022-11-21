@@ -96,6 +96,11 @@ muertes_CCAA<-
   mutate(.data=.,"Comunidades y Ciudades Autónomas"=ejercicio_mujeres_comunidad$MUJERES)
 muertes_CCAA
 
+#Comprobamos los levels
+
+levels(muertes_CCAA$`Comunidades y Ciudades Autónomas`)
+levels(ejercicio_mujeres_comunidad$MUJERES)
+
 #Species <-
 #   Species %>% 
 #   mutate(Island = factor(Island, levels = c("Pinzón", "Santa Cruz","Santa Fé", "Seymour" )))
