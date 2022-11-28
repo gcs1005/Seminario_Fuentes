@@ -7,3 +7,5 @@ Muerte_niños_semana <- read_delim("Input/data/Muerte_niños_semana.csv",
 library(readxl)
 Encuesta_nacional_2017 <- read_excel("Input/data/Encuesta_nacional_2017.xlsx", 
                                      sheet = "Hoja1")
+
+
