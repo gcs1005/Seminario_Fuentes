@@ -10,6 +10,7 @@ x1 <-
     suma_total = sum(Total)
   )
 
+
 x2 <- na.omit(x1)
 
 muertes_CCAA <- filter(x2, Sexo == "Ambos sexos")
@@ -67,6 +68,36 @@ union_tablas
 #teniendo otro carácter.
 muertes_CCAA$`Comunidades y Ciudades Autónomas`[9]<-"CATALUÑA"
 muertes_CCAA
+
+#OBTENCION DE DATOS DE LOS NACIMIENTOS POR COMUNIDAD AUTÓNOMA
+#Natalidad_2021 <- read.delim("clipboard")
+#visualizamos su estructura para observar lo que nos interesa
+str(Natalidad_2021)
+#Es la columna de nacidos
+Natalidad_2021$Nacidos
+
+#Como solo nos interesa la columna de nacidos y los nombres de las CCAA estan
+#desordenados, creamos un dataframe
+
+Natalidad<-data.frame( `Comunidades y Ciudades Autónomas` =muertes_CCAA$`Comunidades y Ciudades Autónomas`,
+                       
+                       nacimientos=c(65522,9095,4771,9455,13178,3407,14738,13652,58464,843,35761,7380,15247,52357,962,13706,5036,14743,2318))
+#Cambiamos valor de la posición 9 de la columna Comunidades.y.Ciudades.Autónomas
+
+Natalidad$Comunidades.y.Ciudades.Autónomas[9]<-"CATALUÑA"
+
+
+
+#una vez obtenidos los datos de número de nacimientos por comunidad autónoma, #creamos una nueva columna, que relacione la cantidad de niños muertos por #comunidad sobre la cantidad de nacimientos por comunidad en porcentaje sobre #100.
+str(muertes_CCAA)
+str(Natalidad)
+
+muertes_CCAA<-
+  left_join(muertes_CCAA,Natalidad,by=c("Comunidades y Ciudades Autónomas"="Comunidades.y.Ciudades.Autónomas")) %>% 
+  mutate(.data = ., muertes_comunidad_porcentaje = (suma_total /nacimientos)*100)
+
+?left_join
+?across
 
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
 union_tablas
