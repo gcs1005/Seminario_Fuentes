@@ -101,3 +101,59 @@ muertes_CCAA<-
 
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
 union_tablas
+
+#Gráficos:
+#Cargamos el paquete ggplot2 y tidyverse
+library(ggplot2)
+library(tidyverse)
+
+#Gráfico de muertes de niños por Comunidad Autónoma
+ggplot(data = muertes_CCAA, aes(x = reorder(muertes_CCAA$`Comunidades y Ciudades Autónomas`,muertes_CCAA$muertes_comunidad_porcentaje), y = muertes_CCAA$muertes_comunidad_porcentaje))+
+  geom_bar(stat = "identity",fill="cornflowerblue",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Muertes porcentaje",title ="Muertes de niños por Comunidad Autónoma",subtitle = "Porcentajes de muertes de menores de una semana en función del total de nacimientos de cada Comunidad Autónoma")
+
+#Gráfico del nivel de deporte realizado por las mujeres en cada CA(nivel alto)
+
+grafico_alto<-ggplot(data = ejercicio_mujeres_comunidad, aes(x = reorder(`Comunidades y Ciudades Autónomas`,nivel_alto), y = nivel_alto))+
+  geom_bar(stat = "identity",fill="green4",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  expand_limits(y=c(0,100))+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Deporte porcentaje",title ="Deporte de nive alto de mujeres por Comunidad Autónoma",subtitle = "Porcentaje del nivel de ejercicio alto en mujeres en función de la Comunidad Autónoma")
+
+#Gráfico del nivel de deporte realizado por las mujeres en cada CA(nivel moderado)
+
+grafico_moderado<-ggplot(data = ejercicio_mujeres_comunidad, aes(x = reorder(`Comunidades y Ciudades Autónomas`,nivel_moderado), y = nivel_moderado))+
+  geom_bar(stat = "identity",fill="gold2",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  expand_limits(y=c(0,100))+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Deporte porcentaje",title ="Deporte de nivel moderado de mujeres por Comunidad Autónoma",subtitle = "Porcentajes del nivel de ejercicio moderado en mujeres en función de la Comunidad Autónoma")
+
+#Gráfico del nivel de deporte realizado por las mujeres en cada CA(nivel bajo)
+
+grafico_bajo<-ggplot(data = ejercicio_mujeres_comunidad, aes(x = reorder(`Comunidades y Ciudades Autónomas`,nivel_bajo), y = nivel_bajo))+
+  geom_bar(stat = "identity",fill="red",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  expand_limits(y=c(0,100))+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Deporte porcentaje",title ="Deporte de nivel bajo de mujeres por comunidad Autónoma",subtitle = "Porcentajes del nivel de ejercicio bajo en mujeres en función de la Comunidad Autónoma")
+
+
+grafico_alto
+grafico_moderado
+grafico_bajo
+
+install.packages("pacthwork")
+install.packages("hrbrthemes")
+library(patchwork) # To display 2 charts together
+
+grafico_deporte <- grafico_alto+grafico_moderado+grafico_bajo
+
+#Gráfico de relación
