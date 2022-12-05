@@ -72,9 +72,9 @@ muertes_CCAA
 #OBTENCION DE DATOS DE LOS NACIMIENTOS POR COMUNIDAD AUTÓNOMA
 #Natalidad_2021 <- read.delim("clipboard")
 #visualizamos su estructura para observar lo que nos interesa
-str(Natalidad_2021)
+#str(Natalidad_2021)
 #Es la columna de nacidos
-Natalidad_2021$Nacidos
+#Natalidad_2021$Nacidos
 
 #Como solo nos interesa la columna de nacidos y los nombres de las CCAA estan
 #desordenados, creamos un dataframe
