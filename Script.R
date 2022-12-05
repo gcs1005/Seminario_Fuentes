@@ -101,3 +101,18 @@ muertes_CCAA<-
 
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
 union_tablas
+
+#Gráficos:
+#Cargamos el paquete ggplot2 y tidyverse
+library(ggplot2)
+library(tidyverse)
+
+#Gráfico de muertes de niños por Comunidad Autónoma
+ggplot(data = muertes_CCAA, aes(x = reorder(muertes_CCAA$`Comunidades y Ciudades Autónomas`,muertes_CCAA$muertes_comunidad_porcentaje), y = muertes_CCAA$muertes_comunidad_porcentaje))+
+  geom_bar(stat = "identity",fill="brown",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Muertes porcentaje",title ="Muertes de niños por Comunidad Autónoma",subtitle = "Porcentajes de muertes de menores de una semana en función del total de nacimientos de cada Comunidad Autónoma")
+
+
