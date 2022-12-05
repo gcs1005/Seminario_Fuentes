@@ -157,3 +157,4 @@ library(patchwork) # To display 2 charts together
 grafico_deporte <- grafico_alto+grafico_moderado+grafico_bajo
 
 #Gráfico de relación
+
