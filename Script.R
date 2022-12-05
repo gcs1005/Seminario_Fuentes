@@ -154,6 +154,6 @@ install.packages("pacthwork")
 install.packages("hrbrthemes")
 library(patchwork) # To display 2 charts together
 
-grafico_alto+grafico_moderado+grafico_bajo
+grafico_deporte <- grafico_alto+grafico_moderado+grafico_bajo
 
 #Gráfico de relación
