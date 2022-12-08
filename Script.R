@@ -167,5 +167,10 @@ grafico_relacion<-ggplot(data=union_tablas,aes(x=union_tablas$`Comunidades y Ciu
 theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   coord_flip()
 
+<<<<<<< HEAD
 
 grafico_relacion
+=======
+#Gráfico de relación
+
+>>>>>>> a4fc0b5eb7777a8936974a2834e051f10f5180fb
