@@ -102,7 +102,7 @@ muertes_CCAA<-
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
 union_tablas
 
-#Gráficos:
+#Gráficos:-------------------------------------------------------------------
 #Cargamos el paquete ggplot2 y tidyverse
 library(ggplot2)
 library(tidyverse)
@@ -150,10 +150,22 @@ grafico_alto
 grafico_moderado
 grafico_bajo
 
-install.packages("pacthwork")
-install.packages("hrbrthemes")
-library(patchwork) # To display 2 charts together
+#install.packages("pacthwork")
+#install.packages("hrbrthemes")
+library("hrbrthemes")
+library("patchwork") # To display 2 charts together
+?package("patchwork")
 
 grafico_deporte <- grafico_alto+grafico_moderado+grafico_bajo
-
+grafico_deporte
 #Gráfico de relación
+#vamos a crear una nueva columna con los niveles de deporte en mujeres en la tabla union_tablas para utilizar facet_grid y factor 
+#Hay que hacer un gráfico lollypop con 
+grafico_relacion<-ggplot(data=union_tablas,aes(x=union_tablas$`Comunidades y Ciudades Autónomas`,y =union_tablas$muertes_comunidad_porcentaje))+
+  geom_point()+
+  #facet_grid+
+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()
+
+
+grafico_relacion
