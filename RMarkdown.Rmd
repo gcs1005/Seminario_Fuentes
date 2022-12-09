@@ -1,8 +1,16 @@
 ---
-title: "RMarkdown"
-author: "Álvaro, Daniel, Gabriel"
-date: "2022-12-07"
-output: html_document
+title: "Documento RMarkdown del Seminario de Fuentes"
+author: |
+    **Daniel, Álvaro, Gabriel**
+date: "Curso 2022-2023"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+  pdf_document:
+    toc: yes
+always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
