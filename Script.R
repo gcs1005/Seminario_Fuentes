@@ -158,14 +158,10 @@ library("patchwork") # To display 2 charts together
 grafico_deporte <- grafico_alto+grafico_moderado+grafico_bajo
 grafico_deporte
 #Gráfico de relación
-#vamos a crear una nueva columna con los niveles de deporte en mujeres en la tabla union_tablas para utilizar facet_grid y factor 
-#Hay que hacer un gráfico lollypop con 
-grafico_relacion<-ggplot(data=union_tablas,aes(x=`Comunidades y Ciudades Autónomas`,y =muertes_comunidad_porcentaje))+
-  geom_point()+
-  geom_smooth()+
-  #facet_grid+
-theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  coord_flip()
+
+#vamos a crear una nueva columna con los niveles de deporte en mujeres en la #tabla union_tablas para utilizar facet_grid y factor (esto al final no ha sido #tal cual)
+#Hay que hacer un gráfico lollypop (al final no se ha realizado este tipo de #gráfico)
+
 union_tablas<- union_tablas[,-c(2,6)]
 union_tablas
 
@@ -174,13 +170,28 @@ union_tablas
 long_union_tablas<-pivot_longer(data = union_tablas, names_to = "Variable", values_to = "Valores", cols = c(nivel_alto:nivel_bajo))
 
 
+#GRÁFICO DE LA RELACION ENTRE MUERTE Y PORCENTAJE DE EJERCICIO EN MUJERES
+#(CON ERROR ESTÁNDAR DE ESTIMACIÓN/"MÁS REALISTA")
+ggplot(data=long_union_tablas,aes(x=Valores,y =muertes_comunidad_porcentaje,colour=Variable))+
+  geom_point()+
+  geom_smooth()+
+  expand_limits(x=c(0,100),y=c(0,1))+
+  scale_color_manual(values=c("green4","red","gold2"))+
+  theme_bw()+
+  labs(x="Porcentaje de deporte en mujeres",y="Porecentaje de muertes",title ="Relación entre  porcentaje de ejercicio y muertes",subtitle = "Representación del porcentaje de ejercicio de las mujeres de todas las CCAA en función del nivel, y su relación con la muerte de niños menores a una semana",colour= "Nivel de ejercicio")
+
+
+#GRÁFICO DE LA RELACION ENTRE MUERTE Y PORCENTAJE DE EJERCICIO EN MUJERES
+#(SIMPLIFICADO/LIMPIO)
 ggplot(data=long_union_tablas,aes(x=Valores,y =muertes_comunidad_porcentaje,colour=Variable))+
   geom_point()+
   #geom_smooth()
   expand_limits(x=c(0,100),y=c(0,1))+
   geom_smooth(method = "nls", formula = y ~ a * x + b, se = F,
               method.args = list(start = list(a = 0.1, b = 0.1)))+
-  scale_color_manual(values=c("green4","red","gold2"))
+  scale_color_manual(values=c("green4","red","gold2"))+
+  theme_bw()+
+  labs(x="Porcentaje de deporte en mujeres",y="Porecentaje de muertes",title ="Relación entre  porcentaje de ejercicio y muertes",subtitle = "Representación del porcentaje de ejercicio de las mujeres de todas las CCAA en función del nivel, y su relación con la muerte de niños menores a una semana",colour= "Nivel de ejercicio")
     
 
 
