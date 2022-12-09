@@ -2,7 +2,7 @@
 title: "Documento RMarkdown del Seminario de Fuentes"
 author: |
     **Daniel, Álvaro, Gabriel**
-date: "Curso 2022-2023"
+date: "Curso 2022/2023"
 output: 
   html_document:
     df_print: paged
