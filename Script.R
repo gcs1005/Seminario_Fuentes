@@ -25,51 +25,56 @@ ejercicio_mujeres_comunidad<-
   Encuesta_nacional_2017 %>%
   slice(.data=.,2:20) %>% 
   rename(
-    nivel_alto=...3,nivel_moderado=...4,nivel_bajo=...5
+    tamaño_muestral=...2,nivel_alto=...3,nivel_moderado=...4,nivel_bajo=...5
   )
 ejercicio_mujeres_comunidad
 
-#Union de ambas tablas
-#Busco un atributo común a ambas set de datos
+# Union de ambas tablas----
+#Busco un atributo común a ambos set de datos
 attributes(muertes_CCAA)
 attributes(ejercicio_mujeres_comunidad)
-#Si que presenan un atributo pero no con el mismo nombre, uno se llama 
+#Sí que presentan un atributo pero no con el mismo nombre, uno se llama 
 #"Comunidades y Ciudades Autónomas" y el otro "Mujeres"
-#De forma que vamos a cambiar el nombre del atributo perteneciente al data_set:
+#De forma que vamos a cambiar el nombre del atributo perteneciente al data_set de
 #ejercicio_mujeres_comunidad
 
 #Aunque primero vamos a forzar que tengan los mismos datos, en realidad si que
-#los tienen pero uno presenta los characteres en miñúsculas y el otro en 
+#los tienen pero uno presenta los characteres en minúsculas y el otro en 
 #mayúsculas
 
 muertes_CCAA$`Comunidades y Ciudades Autónomas`<- toupper(muertes_CCAA$`Comunidades y Ciudades Autónomas`)
 muertes_CCAA
 
-#ahora cambiamos el nombre del set de datos ejercicio_mujeres_comunidad
+#ahora si, cambiamos el nombre de MUJERES del set de datos ejercicio_mujeres_comunidad
+#por Comunidades y Ciudades Autónomas para que coincidan con el de el set de datos muertes_CCAA
 ejercicio_mujeres_comunidad<-
   ejercicio_mujeres_comunidad %>% 
-  rename( "Comunidades y Ciudades Autónomas" =MUJERES)
+  rename( "Comunidades y Ciudades Autónomas" = MUJERES)
+ejercicio_mujeres_comunidad
 
 #Comprobamos los levels
-
 levels(factor(muertes_CCAA$`Comunidades y Ciudades Autónomas`))
 levels(factor(ejercicio_mujeres_comunidad$"Comunidades y Ciudades Autónomas"))
 
-
-
-#Una vez tenemos ambas tablas hacemos un left_join, que por defecto realizará un 
+#Una vez tenemos ambas tablas con los atributos "sincronizados"
+#hacemos un left_join, que por defecto realizará un 
 #natural join al no especificar las columnas a unir
 
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
 union_tablas
 
-#gracias a la unión mediante left_join, observamos que la comunidad autónoma 
-#de CATALUÑA es distinta en un set de datos y otro uno teniendo ñ y otro 
-#teniendo otro carácter.
+#gracias a la unión mediante left_join, observamos NA en la fila de
+#de CATALUÑA. Esto se debe a que en muertes_CCAA no se imprime de forma adecuada
+#el caracter ñ, teniendo otro caracter. 
 muertes_CCAA$`Comunidades y Ciudades Autónomas`[9]<-"CATALUÑA"
 muertes_CCAA
+#Solucionado
+union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
+union_tablas
 
-#OBTENCION DE DATOS DE LOS NACIMIENTOS POR COMUNIDAD AUTÓNOMA
+# OBTENCION DE DATOS DE LOS NACIMIENTOS POR COMUNIDAD AUTÓNOMA ------------
+
+#?????????????????????????????????
 #Natalidad_2021 <- read.delim("clipboard")
 #visualizamos su estructura para observar lo que nos interesa
 #str(Natalidad_2021)
@@ -82,13 +87,17 @@ muertes_CCAA
 Natalidad<-data.frame( `Comunidades y Ciudades Autónomas` =muertes_CCAA$`Comunidades y Ciudades Autónomas`,
                        
                        nacimientos=c(65522,9095,4771,9455,13178,3407,14738,13652,58464,843,35761,7380,15247,52357,962,13706,5036,14743,2318))
-#Cambiamos valor de la posición 9 de la columna Comunidades.y.Ciudades.Autónomas
+Natalidad
 
+#?????????????????????????????????????????
+#Cambiamos valor de la posición 9 de la columna Comunidades.y.Ciudades.Autónomas
 Natalidad$Comunidades.y.Ciudades.Autónomas[9]<-"CATALUÑA"
 
 
 
-#una vez obtenidos los datos de número de nacimientos por comunidad autónoma, #creamos una nueva columna, que relacione la cantidad de niños muertos por #comunidad sobre la cantidad de nacimientos por comunidad en porcentaje sobre #100.
+#una vez obtenidos los datos del número de nacimientos por comunidad autónoma
+#creamos una nueva columna, que relacione la cantidad de niños muertos por
+#comunidad sobre la cantidad de nacimientos por comunidad en porcentaje sobre 100.
 str(muertes_CCAA)
 str(Natalidad)
 
@@ -96,8 +105,6 @@ muertes_CCAA<-
   left_join(muertes_CCAA,Natalidad,by=c("Comunidades y Ciudades Autónomas"="Comunidades.y.Ciudades.Autónomas")) %>% 
   mutate(.data = ., muertes_comunidad_porcentaje = (suma_total /nacimientos)*100)
 
-?left_join
-?across
 
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
 union_tablas

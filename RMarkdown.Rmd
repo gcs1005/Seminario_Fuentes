@@ -30,19 +30,32 @@ plot(pressure)
 ```
 
 ## Introducción
-Este capítulo es una descripción general de los métodos que proponemos para solucionar el problema planteado.
+(Este capítulo es una descripción general de los métodos que proponemos para solucionar el problema planteado.)
+
+Con este proyecto, pretendemos averiguar si existe algún tipo de relación estadística entre la muerte *no natural* de niños y la cantidad de ejercicio físico que llevan a cabo las mujeres embarazadas. Todo ello subcatalogado por Comunidades Autónomas.
+
+Los métodos que proponemos para solucionar el problema planteado son los siguientes:
 
 ## Tablas
-```{r echo=FALSE}
+
+""```{r echo=FALSE}
 knitr::kable(
-  head(mtcars[, 1:8], 10), booktabs = TRUE,
+  head([, 1:3], 19), booktabs = TRUE,
   caption = 'A table of the first 10 rows of the mtcars data.'
 )
-```
+```""
 
 ## Objetivos
+- Recoger datos acerca del número de muertes de menores en una semana por comunidad    autónoma.
+- Recoger datos sobre la cantidad de deporte practicado por comunidad autónoma entre     mujeres embarazadas y tasarla en tres niveles porcentuales `alto` `moderado` `bajo`
+- Estudiar si existe algún tipo de relación entre estos dos grupos.
+
 ## Materiales
+
 ## Métodos
+
 ## Resultados
+
 ## Conclusiones
+
 ## Referencias
