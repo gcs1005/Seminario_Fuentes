@@ -31,7 +31,15 @@ plot(pressure)
 
 ## Introducción
 Este capítulo es una descripción general de los métodos que proponemos para solucionar el problema planteado.
+
 ## Tablas
+```{r echo=FALSE}
+knitr::kable(
+  head(mtcars[, 1:8], 10), booktabs = TRUE,
+  caption = 'A table of the first 10 rows of the mtcars data.'
+)
+```
+
 ## Objetivos
 ## Materiales
 ## Métodos
