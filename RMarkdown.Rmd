@@ -1,7 +1,7 @@
 ---
 title: "Documento RMarkdown del Seminario de Fuentes"
 author: |
-    **Daniel, Álvaro, Gabriel**
+    **Daniel De Lara Pérez, Álvaro, Gabriel**
 date: "Curso 2022/2023"
 output: 
   html_document:
@@ -17,13 +17,7 @@ always_allow_html: true
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown Introducción, Tablas, Objetivos, Materiales y métodos (énfasis), Resultados, Conclusiones, Referencias.
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
+```{r cars, echo=FALSE}
 summary(cars)
 ```
 
@@ -35,4 +29,12 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Introducción
+Este capítulo es una descripción general de los métodos que proponemos para solucionar el problema planteado.
+## Tablas
+## Objetivos
+## Materiales
+## Métodos
+## Resultados
+## Conclusiones
+## Referencias
