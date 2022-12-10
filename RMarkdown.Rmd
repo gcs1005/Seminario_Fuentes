@@ -29,31 +29,26 @@ Uso de pipelines para la concatenación de diferentes funciones, creación de ob
 ## Materiales
 Los datos utilizados en este estudio son:
 
-- La Encuesta Nacional de Salud del año 2017- *Ministerio de Sanidad*
 - Defunciones de menores de una semana por causas (lista perinatal reducida), sexo y comunidad y ciudad autónoma de residencia del año 2021 - *Gobierno de España*
+```{r message=FALSE}
+library(readr)
+Muerte_niños_semana <- read_delim("Input/data/Muerte_niños_semana.csv", 
+                                  delim = ";", escape_double = FALSE, trim_ws = TRUE)
+Muerte_niños_semana
+```
+- La Encuesta Nacional de Salud del año 2017- *Ministerio de Sanidad*
+```{r message=FALSE}
+library(readxl)
+Encuesta_nacional_2017 <- read_excel("Input/data/Encuesta_nacional_2017.xlsx", 
+                                     sheet = "Hoja1")
+Encuesta_nacional_2017
+```
 - La natalidad de las Comunidades Autónomas del año 2021 - *Página web de DatosMacro*
 
 Estos se han importado en formato Excel y CSV, para la Encuesta Nacional de Salud y las defunciones de menores de una semana respectivamente, ya que en algún caso éra la única alternativa para su importación.
 Dentro de la Encuesta Nacional de Salud, se creo un Hoja de Excel que incluía solamente los datos del nivel de ejercicio de mujeres, a causa de la gran cantidad de datos que este archivo Excel presentaba.
 
 En el caso de la Natalidad por comunidades autónomas se ha requerido la aplicación de la función `clipboard`, debido a que la descarga de datos no era accesible en ningún tipo de formato.
-```{r}
-library(readr)
-Muerte_niños_semana <- read_delim("Input/data/Muerte_niños_semana.csv", 
-                                  delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-library(readxl)
-Encuesta_nacional_2017 <- read_excel("Input/data/Encuesta_nacional_2017.xlsx", 
-                                     sheet = "Hoja1")
-```
-
-```{r}
-Muerte_niños_semana
-Encuesta_nacional_2017
-```
-
-
-
 
 ## Métodos y Tablas
 ```{r message=FALSE}
