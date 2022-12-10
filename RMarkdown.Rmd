@@ -174,3 +174,27 @@ knitr::kable(
 ## Conclusiones
 
 ## Referencias
+__Datos muerte niños:__
+
+Instituto Nacional de Estadística, 2021,
+
+Datos sobre la cantidad de muertes de niños menores de una semana por comunidad autónoma,
+
+(https://datos.gob.es/es/catalogo/ea0010587-defunciones-de-menores-de-una-semana-por-causas-lista-perinatal-reducida-sexo-y-comunidad-y-ciudad-autonoma-de-residencia-ecm-identificador-api-t15-p417-a2020-l0-02022-px)
+
+
+__Datos sobre el deporte:__
+
+Ministerio de Sanidad, 2017,
+
+Recopilación de datos sobre el deporte en españa,
+
+(https://www.sanidad.gob.es/estadEstudios/estadisticas/encuestaNacional/encuestaNac2017/encuestaResDetall2017.htm)
+
+__Datos de natalidad:__
+
+Natalidad de las comunidades autónomas,
+
+Datosmacro.com, 2021,
+
+(https://datosmacro.expansion.com/demografia/natalidad/espana-comunidades-autonomas)
