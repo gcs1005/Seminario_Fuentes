@@ -14,8 +14,6 @@ always_allow_html: true
 ---
 
 ## Introducción
-(Este capítulo es una descripción general de los métodos que proponemos para solucionar el problema planteado.)
-
 Con este proyecto, pretendemos averiguar si existe algún tipo de relación estadística entre la muerte *no natural* de niños al nacer y la cantidad de ejercicio físico que llevan a cabo las mujeres embarazadas. Todo ello subcatalogado por Comunidades Autónomas.
 
 Entre los métodos que proponemos para solucionar el problema planteado se encuntran:
