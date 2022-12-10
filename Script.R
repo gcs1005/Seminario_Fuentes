@@ -74,7 +74,7 @@ union_tablas
 
 # OBTENCION DE DATOS DE LOS NACIMIENTOS POR COMUNIDAD AUTÓNOMA ------------
 
-#?????????????????????????????????
+#Los datos de natalidad que hemos introducido a mano salen de aquí:
 #Natalidad_2021 <- read.delim("clipboard")
 #visualizamos su estructura para observar lo que nos interesa
 #str(Natalidad_2021)
@@ -89,7 +89,6 @@ Natalidad<-data.frame( `Comunidades y Ciudades Autónomas` =muertes_CCAA$`Comuni
                        nacimientos=c(65522,9095,4771,9455,13178,3407,14738,13652,58464,843,35761,7380,15247,52357,962,13706,5036,14743,2318))
 Natalidad
 
-#?????????????????????????????????????????
 #Cambiamos valor de la posición 9 de la columna Comunidades.y.Ciudades.Autónomas
 Natalidad$Comunidades.y.Ciudades.Autónomas[9]<-"CATALUÑA"
 

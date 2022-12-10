@@ -1,7 +1,7 @@
 ---
 title: "Documento RMarkdown del Seminario de Fuentes"
 author: |
-    **Daniel De Lara Pérez, Álvaro, Gabriel**
+    **Daniel De Lara Pérez, Álvaro Velasco García, Gabriel Collado Santamaría**
 date: "Curso 2022/2023"
 output: 
   html_document:
@@ -13,48 +13,136 @@ output:
 always_allow_html: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r cars, echo=FALSE}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
 ## Introducción
 (Este capítulo es una descripción general de los métodos que proponemos para solucionar el problema planteado.)
 
-Con este proyecto, pretendemos averiguar si existe algún tipo de relación estadística entre la muerte *no natural* de niños y la cantidad de ejercicio físico que llevan a cabo las mujeres embarazadas. Todo ello subcatalogado por Comunidades Autónomas.
+Con este proyecto, pretendemos averiguar si existe algún tipo de relación estadística entre la muerte *no natural* de niños al nacer y la cantidad de ejercicio físico que llevan a cabo las mujeres embarazadas. Todo ello subcatalogado por Comunidades Autónomas.
 
 Los métodos que proponemos para solucionar el problema planteado son los siguientes:
 
-## Tablas
-
-""```{r echo=FALSE}
-knitr::kable(
-  head([, 1:3], 19), booktabs = TRUE,
-  caption = 'A table of the first 10 rows of the mtcars data.'
-)
-```""
-
 ## Objetivos
-- Recoger datos acerca del número de muertes de menores en una semana por comunidad    autónoma.
-- Recoger datos sobre la cantidad de deporte practicado por comunidad autónoma entre     mujeres embarazadas y tasarla en tres niveles porcentuales `alto` `moderado` `bajo`
+- Recoger datos porcentuales acerca del número de muertes de niños con menos de una semana de vida por comunidad autónoma y su proporción con el número de niños nacidos en un año.
+- Recoger datos sobre la cantidad de deporte practicado por comunidad autónoma entre     mujeres en edad fértil y tasarla en tres niveles porcentuales `alto` `moderado` `bajo`
 - Estudiar si existe algún tipo de relación entre estos dos grupos.
 
 ## Materiales
+```{r}
+library(readr)
+Muerte_niños_semana <- read_delim("Input/data/Muerte_niños_semana.csv", 
+                                  delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+library(readxl)
+Encuesta_nacional_2017 <- read_excel("Input/data/Encuesta_nacional_2017.xlsx", 
+                                     sheet = "Hoja1")
+```
+
+```{r}
+Muerte_niños_semana
+Encuesta_nacional_2017
+```
 
 ## Métodos
+```{r}
+library(dplyr)
+```
+```{r}
+x1 <- 
+  Muerte_niños_semana %>%
+  group_by(`Comunidades y Ciudades Autónomas`, Sexo) %>%
+  select(Total) %>%
+  summarise(
+    suma_total = sum(Total)
+  )
 
-## Resultados
+
+x2 <- na.omit(x1)
+
+muertes_CCAA <- filter(x2, Sexo == "Ambos sexos")
+```
+```{r}
+ejercicio_mujeres_comunidad<-
+  Encuesta_nacional_2017 %>%
+  slice(.data=.,2:20) %>% 
+  rename(
+    tamaño_muestral=...2,nivel_alto=...3,nivel_moderado=...4,nivel_bajo=...5
+  )
+```
+```{r}
+attributes(muertes_CCAA)
+attributes(ejercicio_mujeres_comunidad)
+```
+```{r}
+muertes_CCAA$`Comunidades y Ciudades Autónomas`<- toupper(muertes_CCAA$`Comunidades y Ciudades Autónomas`)
+muertes_CCAA
+```
+```{r}
+ejercicio_mujeres_comunidad<-
+  ejercicio_mujeres_comunidad %>% 
+  rename( "Comunidades y Ciudades Autónomas" = MUJERES)
+```
+```{r}
+levels(factor(muertes_CCAA$`Comunidades y Ciudades Autónomas`))
+levels(factor(ejercicio_mujeres_comunidad$"Comunidades y Ciudades Autónomas"))
+```
+```{r}
+union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
+union_tablas
+```
+```{r}
+muertes_CCAA$`Comunidades y Ciudades Autónomas`[9]<-"CATALUÑA"
+muertes_CCAA
+```
+```{r}
+union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
+union_tablas
+```
+```{r}
+Natalidad<-data.frame( `Comunidades y Ciudades Autónomas` =muertes_CCAA$`Comunidades y Ciudades Autónomas`,
+                       
+                       nacimientos=c(65522,9095,4771,9455,13178,3407,14738,13652,58464,843,35761,7380,15247,52357,962,13706,5036,14743,2318))
+Natalidad
+```
+```{r}
+str(muertes_CCAA)
+str(Natalidad)
+
+muertes_CCAA<-
+  left_join(muertes_CCAA,Natalidad,by=c("Comunidades y Ciudades Autónomas"="Comunidades.y.Ciudades.Autónomas")) %>% 
+  mutate(.data = ., muertes_comunidad_porcentaje = (suma_total /nacimientos)*100)
+
+
+union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
+union_tablas
+```
+
+
+## Tablas
+```{r}
+x1 <- 
+  Muerte_niños_semana %>%
+  group_by(`Comunidades y Ciudades Autónomas`, Sexo) %>%
+  select(Total) %>%
+  summarise(
+    suma_total = sum(Total)
+  )
+
+
+x2 <- na.omit(x1)
+
+muertes_CCAA <- filter(x2, Sexo == "Ambos sexos")
+muertes_CCAA
+```
+
+
+```{r}
+knitr::kable(
+  head(Muerte_niños_semana[,]),
+  caption = 'A table of the first 10 rows of the mtcars data.'
+)
+```
+
+
+## Resultados (gráficos)
 
 ## Conclusiones
 
