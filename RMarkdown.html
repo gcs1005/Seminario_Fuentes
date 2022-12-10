@@ -2783,8 +2783,6 @@ García, Gabriel Collado Santamaría</strong></p></h4>
 
 <div id="introducción" class="section level2">
 <h2>Introducción</h2>
-<p>(Este capítulo es una descripción general de los métodos que
-proponemos para solucionar el problema planteado.)</p>
 <p>Con este proyecto, pretendemos averiguar si existe algún tipo de
 relación estadística entre la muerte <em>no natural</em> de niños al
 nacer y la cantidad de ejercicio físico que llevan a cabo las mujeres
@@ -3843,6 +3841,8 @@ union_tablas&lt;-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)</code><
 </tr>
 </tbody>
 </table>
+<p>Eliminamos dos columnas, innecesarias para realizar los gráficos</p>
+<pre class="r"><code>union_tablas&lt;- union_tablas[,-c(2,6)]</code></pre>
 </div>
 <div id="resultados-gráficos" class="section level2">
 <h2>Resultados (gráficos)</h2>

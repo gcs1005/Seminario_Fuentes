@@ -161,6 +161,10 @@ knitr::kable(
   caption = 'Tabla definitiva de relación'
 )
 ```
+Eliminamos dos columnas, innecesarias para realizar los gráficos
+```{r}
+union_tablas<- union_tablas[,-c(2,6)]
+```
 
 ## Resultados (gráficos)
 
