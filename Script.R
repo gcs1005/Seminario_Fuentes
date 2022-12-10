@@ -114,7 +114,7 @@ library(ggplot2)
 library(tidyverse)
 
 #Gráfico de muertes de niños por Comunidad Autónoma
-ggplot(data = muertes_CCAA, aes(x = reorder(muertes_CCAA$`Comunidades y Ciudades Autónomas`,muertes_CCAA$muertes_comunidad_porcentaje), y = muertes_CCAA$muertes_comunidad_porcentaje))+
+ggplot(data = muertes_CCAA, aes(x = reorder(`Comunidades y Ciudades Autónomas`,muertes_comunidad_porcentaje), y = muertes_comunidad_porcentaje))+
   geom_bar(stat = "identity",fill="cornflowerblue",colour="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   coord_flip()+
