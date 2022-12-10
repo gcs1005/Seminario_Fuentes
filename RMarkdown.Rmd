@@ -20,6 +20,15 @@ Con este proyecto, pretendemos averiguar si existe algún tipo de relación esta
 
 Los métodos que proponemos para solucionar el problema planteado son los siguientes:
 
+<<<<<<< HEAD
+=======
+## Tablas
+
+
+
+
+
+>>>>>>> f9b0f7a7590076f82558d968a2158963abb4b40b
 ## Objetivos
 - Recoger datos porcentuales acerca del número de muertes de niños con menos de una semana de vida por comunidad autónoma y su proporción con el número de niños nacidos en un año.
 - Recoger datos sobre la cantidad de deporte practicado por comunidad autónoma entre     mujeres en edad fértil y tasarla en tres niveles porcentuales `alto` `moderado` `bajo`
