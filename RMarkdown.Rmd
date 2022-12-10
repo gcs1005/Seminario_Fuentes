@@ -166,7 +166,118 @@ Eliminamos dos columnas, innecesarias para realizar los gráficos
 union_tablas<- union_tablas[,-c(2,6)]
 ```
 
-## Resultados (gráficos)
+## Resultados
+Para la visualización de los gráficos y la obtención de resultados es necesario cargar un par de paquetes que han debido de descargarse previamente, mediante el comando `install.packages()`.EStos paquetes son:
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tidyverse)
+```
+En primer lugar comenzamos realizando un gráfico para la representación de las muertes de Niños por comunidad autónoma.
+A nuestro parecer el gráfico que mejor representa estos datos son los gráficos de barras, y será generalmente el tipo de gráfico que utilicemos en el estudio.
+Los gráficos de barras han sido modificados para mejorar su visualización y por ellos, mayor y fácil comprensión.
+```{r}
+ggplot(data = muertes_CCAA, aes(x = reorder(muertes_CCAA$`Comunidades y Ciudades Autónomas`,muertes_CCAA$muertes_comunidad_porcentaje), y = muertes_CCAA$muertes_comunidad_porcentaje))+
+  geom_bar(stat = "identity",fill="cornflowerblue",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Muertes porcentaje",title ="Muertes de niños por Comunidad Autónoma",subtitle = "Porcentajes de muertes de menores de una semana en función del total de nacimientos de cada Comunidad Autónoma")
+```
+
+Como podemos observar el mayor porcentaje de muertes se encuentra en la comunidad autónoma de Cantabria, seguida de Castilla y León y Andalucía.
+Recordemos que estos porcentajes se han obtenido a partir del total de nacimientos y muertes por cada comunidad.
+
+A continuación vamos a mostrar el ejercicio de mujeres de nivel alto realizado por Comunidad Autónoma.
+```{r}
+grafico_alto<-ggplot(data = ejercicio_mujeres_comunidad, aes(x = reorder(`Comunidades y Ciudades Autónomas`,nivel_alto), y = nivel_alto))+
+  geom_bar(stat = "identity",fill="green4",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  expand_limits(y=c(0,100))+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Deporte porcentaje",title ="Deporte de nive alto de mujeres por Comunidad Autónoma",subtitle = "Porcentaje del nivel de ejercicio alto en mujeres en función de la Comunidad Autónoma")
+  
+grafico_alto
+```
+
+Vemos que Melilla es la comunidad autónoma donde las mujeres hacer un mayor ejercicio de nivel alto, superando el 50% sobre el total de mujeres que realizan deporte.
+En segundo lugar encontramos Comunidad Valenciana, y Extremadura en el tercero.
+Galicia por el contrario es la comunidad autónoma donde menos ejercicio de alto nivel se realiza entre las mujeres españolas.
+
+
+Seguimos con la observación de el deporte, pero esta vez con un nivel moderado de ejercicio.
+```{r}
+grafico_moderado<-ggplot(data = ejercicio_mujeres_comunidad, aes(x = reorder(`Comunidades y Ciudades Autónomas`,nivel_moderado), y = nivel_moderado))+
+  geom_bar(stat = "identity",fill="gold2",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  expand_limits(y=c(0,100))+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Deporte porcentaje",title ="Deporte de nivel moderado de mujeres por Comunidad Autónoma",subtitle = "Porcentajes del nivel de ejercicio moderado en mujeres en función de la Comunidad Autónoma")
+  
+grafico_moderado
+```
+
+En este gráfico la mayoría de las CCAA mantienen unos niveles relativamente parecidos, manteniéndose en el top del ejercicio moderado Cantabria y empezando por la pate inferior la Comunidad Autónoma de Ceuta.
+
+
+En el último nivel de deporte, es decir el deporte de nivel bajo, obtendríamos lo siguiente:
+
+```{r}
+grafico_bajo<-ggplot(data = ejercicio_mujeres_comunidad, aes(x = reorder(`Comunidades y Ciudades Autónomas`,nivel_bajo), y = nivel_bajo))+
+  geom_bar(stat = "identity",fill="red",colour="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  coord_flip()+
+  expand_limits(y=c(0,100))+
+  theme_bw()+
+  labs(x="Comunidades Autónomas",y="Deporte porcentaje",title ="Deporte de nivel bajo de mujeres por comunidad Autónoma",subtitle = "Porcentajes del nivel de ejercicio bajo en mujeres en función de la Comunidad Autónoma")
+  
+grafico_bajo
+```
+
+Ceuta se sitúa como la Comudidad Autónoma donde mayor número de mujeres practíca un nivel bajo de ejercicio según datos recogidos por el ministerio; le siguen la Comunidad de Murcia y Canarias.
+Si observamos la comunidad que menos mujeres realizan ejercicio de nivel bajo, encontramos a Melilla, la cual, como hemos comentado anteriormente es la comunidad donde más se practica el ejercicio de alto nivel entre la población femenina que la compone, lo cual justifica los datos presentados por esta tabla de ejercicio bajo, al situarse como la última dentro de todas las CCAA.
+
+
+Por último vamos a representar las tres gráficas comentadas anteriormente para comparar más a gusto los resultados obtenidos del nivel de ejercicio en mujeres.
+Para ello descargamos los paquetes `pacthwork` y `hrbrthemes`, y a continuación lo cargamos.
+
+```{r message=FALSE, warning=FALSE}
+library("hrbrthemes")
+library("patchwork")
+```
+```{r}
+grafico_deporte <- grafico_alto+grafico_moderado+grafico_bajo
+```
+
+
+Para finalizar presentamos el Gráfico de relación de nuestro estudio.Este gráfico relaciona la porcentaje de ejrecicio realizado por la mujeres sobre 100 ,con el porcentaje de muertes de niños sobre 1.
+Estos datos como hemos comentado anteriormente han sido obtenidos de un `left_join` con CCAA como unión.
+
+Previamente y para lograr el gráfico, debemos pivotar la tabla de ancho a largo y conseguir tres líneas de regresión lineal, cada una para cada nivel de deporte.
+Visualizamos las diez primeras líneas.
+```{r}
+long_union_tablas<-pivot_longer(data = union_tablas, names_to = "Variable", values_to = "Valores", cols = c(nivel_alto:nivel_bajo))
+
+knitr::kable(
+  head(long_union_tablas[,]),
+  caption = 'A table of the first 10 rows of the mtcars data.'
+)
+```
+
+Con ello ya sería posible la representación de la gráfica de relación:
+
+```{r}
+ggplot(data=long_union_tablas,aes(x=Valores,y =muertes_comunidad_porcentaje,colour=Variable))+
+  geom_point()+
+  #geom_smooth()
+  expand_limits(x=c(0,100),y=c(0,1))+
+  geom_smooth(method = "nls", formula = y ~ a * x + b, se = F,
+              method.args = list(start = list(a = 0.1, b = 0.1)))+
+  scale_color_manual(values=c("green4","red","gold2"))+
+  theme_bw()+
+  labs(x="Porcentaje de deporte en mujeres",y="Porecentaje de muertes",title ="Relación entre  porcentaje de ejercicio y muertes",subtitle = "Representación del porcentaje de ejercicio de las mujeres de todas las CCAA en función del nivel, y su relación con la muerte de niños menores a una semana",colour= "Nivel de ejercicio")
+```
 
 ## Conclusiones
 Las respuestas a las dos primeras preguntas se pueden ver en el apartado de resultados.
