@@ -20,15 +20,6 @@ Con este proyecto, pretendemos averiguar si existe algún tipo de relación esta
 
 Los métodos que proponemos para solucionar el problema planteado son los siguientes:
 
-<<<<<<< HEAD
-=======
-## Tablas
-
-
-
-
-
->>>>>>> f9b0f7a7590076f82558d968a2158963abb4b40b
 ## Objetivos
 - Recoger datos porcentuales acerca del número de muertes de niños con menos de una semana de vida por comunidad autónoma y su proporción con el número de niños nacidos en un año.
 - Recoger datos sobre la cantidad de deporte practicado por comunidad autónoma entre     mujeres en edad fértil y tasarla en tres niveles porcentuales `alto` `moderado` `bajo`
@@ -50,11 +41,15 @@ Muerte_niños_semana
 Encuesta_nacional_2017
 ```
 
-## Métodos
-```{r}
+
+
+
+## Métodos y Tablas
+```{r message=FALSE}
 library(dplyr)
 ```
-```{r}
+Realizamos el filtrado de los datos de niños muertos: Ambos sexos por CCAA
+```{r message=FALSE}
 x1 <- 
   Muerte_niños_semana %>%
   group_by(`Comunidades y Ciudades Autónomas`, Sexo) %>%
@@ -68,6 +63,12 @@ x2 <- na.omit(x1)
 
 muertes_CCAA <- filter(x2, Sexo == "Ambos sexos")
 ```
+```{r}
+knitr::kable(
+  head(muertes_CCAA[,1:3],19),
+)
+```
+Ahora hacemos el filtrado de los datos correspondiente al grado de deporte: Mujeres por CCAA y su nivel de act.física
 ```{r}
 ejercicio_mujeres_comunidad<-
   Encuesta_nacional_2017 %>%
@@ -77,41 +78,69 @@ ejercicio_mujeres_comunidad<-
   )
 ```
 ```{r}
-attributes(muertes_CCAA)
-attributes(ejercicio_mujeres_comunidad)
+knitr::kable(
+  head(ejercicio_mujeres_comunidad[,1:5],19),
+)
 ```
+Vamos a proceder a la unión de ambas tablas:
+
+- Primero vamos a forzar a que ambas bases de datos tengan los datos en el mismo       formato, es decir, en este caso uno presenta los characteres en minúsculas y el      otro en mayúsculas. Lo corregimos:
 ```{r}
 muertes_CCAA$`Comunidades y Ciudades Autónomas`<- toupper(muertes_CCAA$`Comunidades y Ciudades Autónomas`)
 muertes_CCAA
 ```
+- Busco un atributo común a ambos set de datos
+```{r}
+attributes(muertes_CCAA)
+attributes(ejercicio_mujeres_comunidad)
+```
+Sí que presentan un atributo común, pero no con el mismo nombre, uno se llama 
+*Comunidades y Ciudades Autónomas* y el otro *Mujeres*.
+De forma que vamos a cambiar el nombre de *MUJERES* del set de datos ejercicio_mujeres_comunidad por *Comunidades y Ciudades Autónomas* para que coincidan con el de el set de datos muertes_CCAA:
 ```{r}
 ejercicio_mujeres_comunidad<-
   ejercicio_mujeres_comunidad %>% 
   rename( "Comunidades y Ciudades Autónomas" = MUJERES)
+ejercicio_mujeres_comunidad
 ```
+- Comprobamos los levels:
 ```{r}
 levels(factor(muertes_CCAA$`Comunidades y Ciudades Autónomas`))
 levels(factor(ejercicio_mujeres_comunidad$"Comunidades y Ciudades Autónomas"))
 ```
-```{r}
-union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
-union_tablas
-```
+Observamos que en **Cataluña** la `ñ` está representada por otro caracter en muertes_CCAA. Corregimos eso:
 ```{r}
 muertes_CCAA$`Comunidades y Ciudades Autónomas`[9]<-"CATALUÑA"
 muertes_CCAA
 ```
-```{r}
+- Ya podemos hacer un left join para unir ambas tablas sin que nos salga NA. En        realidad estaremos haciendo un natural join al no especificar las columnas a unir:
+```{r message=FALSE}
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
-union_tablas
 ```
+```{r}
+knitr::kable(
+  head(union_tablas[,1:7],19),
+  caption = 'Ambas tablas unificadas'
+)
+```
+
+Una vez pasadas las tablas a ser una sola, toca obtener los datos de los nacimientos por Comunidad Autónoma:
 ```{r}
 Natalidad<-data.frame( `Comunidades y Ciudades Autónomas` =muertes_CCAA$`Comunidades y Ciudades Autónomas`,
                        
                        nacimientos=c(65522,9095,4771,9455,13178,3407,14738,13652,58464,843,35761,7380,15247,52357,962,13706,5036,14743,2318))
-Natalidad
 ```
 ```{r}
+knitr::kable(
+  head(Natalidad[,1:2],19),
+)
+```
+Hemos creado un nuevo dataframe **Natalidad** basándonos en los atributos de interés de natalidad por CCAA. Lo único que nos interesa es la columna de nacimientos.
+
+Una vez obtenidos los datos del número de nacimientos por comunidad autónoma
+creamos una nueva columna, que relacione la cantidad de niños muertos por
+comunidad respecto la cantidad de nacimientos (también por comunidad) en porcentaje sobre 100.
+```{r message=FALSE}
 str(muertes_CCAA)
 str(Natalidad)
 
@@ -121,35 +150,13 @@ muertes_CCAA<-
 
 
 union_tablas<-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)
-union_tablas
 ```
-
-
-## Tablas
-```{r}
-x1 <- 
-  Muerte_niños_semana %>%
-  group_by(`Comunidades y Ciudades Autónomas`, Sexo) %>%
-  select(Total) %>%
-  summarise(
-    suma_total = sum(Total)
-  )
-
-
-x2 <- na.omit(x1)
-
-muertes_CCAA <- filter(x2, Sexo == "Ambos sexos")
-muertes_CCAA
-```
-
-
 ```{r}
 knitr::kable(
-  head(Muerte_niños_semana[,]),
-  caption = 'A table of the first 10 rows of the mtcars data.'
+  head(union_tablas[,1:9],19),
+  caption = 'Tabla definitiva de relación'
 )
 ```
-
 
 ## Resultados (gráficos)
 
