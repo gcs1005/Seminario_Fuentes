@@ -38,12 +38,9 @@ Los métodos que proponemos para solucionar el problema planteado son los siguie
 
 ## Tablas
 
-""```{r echo=FALSE}
-knitr::kable(
-  head([, 1:3], 19), booktabs = TRUE,
-  caption = 'A table of the first 10 rows of the mtcars data.'
-)
-```""
+
+
+
 
 ## Objetivos
 - Recoger datos acerca del número de muertes de menores en una semana por comunidad    autónoma.
