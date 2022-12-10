@@ -171,6 +171,7 @@ union_tablas<- union_tablas[,-c(2,6)]
 ## Conclusiones
 Las respuestas a las dos primeras preguntas se pueden ver en el apartado de resultados.
 A la pregunta de relación entre Muertes de menores de una semana y el ejercicio realizado por su madre podemos observar en la gráfica de relación, que a medida que el ejercico alto se incrementa, las muertes disminuyen mientras que en el caso de los niveles medios y bajos estas aumentan, siendo más prominente el nivel bajo, estos datos son porcentuales por lo que no quiere decir que un nivel moderado de ejercicio aumente el número de  muertes, si no que lo hace en comparación de la reducción que vemos a la hora de un nivel alto de ejercicio.
+
 ## Referencias
 __Datos muerte niños:__
 

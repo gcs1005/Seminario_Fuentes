@@ -2830,8 +2830,9 @@ Muerte_niños_semana</code></pre>
 <li>La Encuesta Nacional de Salud del año 2017- <em>Ministerio de
 Sanidad</em></li>
 </ul>
-<pre class="r"><code>library(readxl)
-Encuesta_nacional_2017 &lt;- read_excel(&quot;Input/data/Encuesta_nacional_2017.xlsx&quot;, 
+<pre class="r"><code>library(readxl)</code></pre>
+<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.2.2</code></pre>
+<pre class="r"><code>Encuesta_nacional_2017 &lt;- read_excel(&quot;Input/data/Encuesta_nacional_2017.xlsx&quot;, 
                                      sheet = &quot;Hoja1&quot;)
 Encuesta_nacional_2017</code></pre>
 <div data-pagedtable="false">
@@ -3561,7 +3562,7 @@ autónoma creamos una nueva columna, que relacione la cantidad de niños
 muertos por comunidad respecto la cantidad de nacimientos (también por
 comunidad) en porcentaje sobre 100.</p>
 <pre class="r"><code>str(muertes_CCAA)</code></pre>
-<pre><code>## grouped_df [19 × 3] (S3: grouped_df/tbl_df/tbl/data.frame)
+<pre><code>## gropd_df [19 × 3] (S3: grouped_df/tbl_df/tbl/data.frame)
 ##  $ Comunidades y Ciudades Autónomas: chr [1:19] &quot;ANDALUCÍA&quot; &quot;ARAGÓN&quot; &quot;ASTURIAS, PRINCIPADO DE&quot; &quot;BALEARS, ILLES&quot; ...
 ##  $ Sexo                            : chr [1:19] &quot;Ambos sexos&quot; &quot;Ambos sexos&quot; &quot;Ambos sexos&quot; &quot;Ambos sexos&quot; ...
 ##  $ suma_total                      : num [1:19] 277 21 20 39 33 20 44 68 221 3 ...
@@ -3849,6 +3850,16 @@ union_tablas&lt;-left_join(x=ejercicio_mujeres_comunidad,y=muertes_CCAA)</code><
 </div>
 <div id="conclusiones" class="section level2">
 <h2>Conclusiones</h2>
+<p>Las respuestas a las dos primeras preguntas se pueden ver en el
+apartado de resultados. A la pregunta de relación entre Muertes de
+menores de una semana y el ejercicio realizado por su madre podemos
+observar en la gráfica de relación, que a medida que el ejercico alto se
+incrementa, las muertes disminuyen mientras que en el caso de los
+niveles medios y bajos estas aumentan, siendo más prominente el nivel
+bajo, estos datos son porcentuales por lo que no quiere decir que un
+nivel moderado de ejercicio aumente el número de muertes, si no que lo
+hace en comparación de la reducción que vemos a la hora de un nivel alto
+de ejercicio.</p>
 </div>
 <div id="referencias" class="section level2">
 <h2>Referencias</h2>
