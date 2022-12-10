@@ -2,7 +2,7 @@
 title: "Documento RMarkdown del Seminario de Fuentes"
 author: |
     **Daniel De Lara Pérez, Álvaro Velasco García, Gabriel Collado Santamaría**
-date: "Curso 2022/2023"
+date: "Curso 2022-2023"
 output: 
   html_document:
     df_print: paged
@@ -18,7 +18,8 @@ always_allow_html: true
 
 Con este proyecto, pretendemos averiguar si existe algún tipo de relación estadística entre la muerte *no natural* de niños al nacer y la cantidad de ejercicio físico que llevan a cabo las mujeres embarazadas. Todo ello subcatalogado por Comunidades Autónomas.
 
-Los métodos que proponemos para solucionar el problema planteado son los siguientes:
+Entre los métodos que proponemos para solucionar el problema planteado se encuntran:
+Uso de pipelines para la concatenación de diferentes funciones, creación de objetos, la utilización de los joins para la combinación de diferentes tablas y encontrar un posible relación entre los dos cojuntos de datos,desarrollo de gráficos para poder visualizar mejor una posible relación entre los datos de interés,etc.
 
 ## Objetivos
 - Recoger datos porcentuales acerca del número de muertes de niños con menos de una semana de vida por comunidad autónoma y su proporción con el número de niños nacidos en un año.
@@ -26,6 +27,16 @@ Los métodos que proponemos para solucionar el problema planteado son los siguie
 - Estudiar si existe algún tipo de relación entre estos dos grupos.
 
 ## Materiales
+Los datos utilizados en este estudio son:
+
+- La Encuesta Nacional de Salud del año 2017- *Ministerio de Sanidad*
+- Defunciones de menores de una semana por causas (lista perinatal reducida), sexo y comunidad y ciudad autónoma de residencia del año 2021 - *Gobierno de España*
+- La natalidad de las Comunidades Autónomas del año 2021 - *Página web de DatosMacro*
+
+Estos se han importado en formato Excel y CSV, para la Encuesta Nacional de Salud y las defunciones de menores de una semana respectivamente, ya que en algún caso éra la única alternativa para su importación.
+Dentro de la Encuesta Nacional de Salud, se creo un Hoja de Excel que incluía solamente los datos del nivel de ejercicio de mujeres, a causa de la gran cantidad de datos que este archivo Excel presentaba.
+
+En el caso de la Natalidad por comunidades autónomas se ha requerido la aplicación de la función `clipboard`, debido a que la descarga de datos no era accesible en ningún tipo de formato.
 ```{r}
 library(readr)
 Muerte_niños_semana <- read_delim("Input/data/Muerte_niños_semana.csv", 
